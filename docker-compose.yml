@@ -1,0 +1,16 @@
+services:
+  server:
+    build: ./server
+    container_name: url-shortener-server
+    env_file:
+      - ./server/.env
+    expose:
+      - "5000"
+
+  client:
+    build: ./client
+    container_name: url-shortener-client
+    ports:
+      - "80:80"
+    depends_on:
+      - server
