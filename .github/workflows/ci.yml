@@ -37,3 +37,6 @@ jobs:
       - name: Build server
         working-directory: server
         run: npm run build
+
+      - name: Build Docker images
+        run: docker compose build
