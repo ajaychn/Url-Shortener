@@ -1,8 +1,11 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useGetMeQuery } from "../services/authApi";
 
+import { skipToken } from "@reduxjs/toolkit/query";
+import { hasSession } from "../utils/authSession";
+
 const PublicRoute = () => {
-  const { data, isLoading } = useGetMeQuery();
+  const { data, isLoading } = useGetMeQuery(hasSession() ? undefined : skipToken);
 
   if (isLoading) {
     return (

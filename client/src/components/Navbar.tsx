@@ -1,28 +1,27 @@
 import { useNavigate } from "react-router-dom";
-import {useLogoutMutation,} from "../services/authApi";
+import {authApi, useGetMeQuery, useLogoutMutation,} from "../services/authApi";
 import { useAppDispatch } from "../store/hooks";
 import { urlApi } from "../services/urlApi";
-import type { RootState } from "../store/store";
-import { useSelector } from "react-redux";
-import { clearUser } from "../features/auth/authSlice";
-
+import { clearSession } from "../utils/authSession";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const {data} = useGetMeQuery()
 
-  const user = useSelector((state: RootState) => state.auth.user);
   const [logout, { isLoading }] = useLogoutMutation();
 
   const handleLogout = async () => {
+    
     try {
       await logout().unwrap();
-      dispatch(clearUser());
-      dispatch(urlApi.util.resetApiState());
-
-      navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
+    } finally {
+      clearSession();  
+      dispatch(authApi.util.resetApiState());
+      dispatch(urlApi.util.resetApiState());
+      navigate("/login", { replace: true });
     }
   };
 
@@ -33,7 +32,7 @@ const Navbar = () => {
 
         <div className="flex items-center gap-4">
           <span className="text-sm">
-            Hi, <strong>{user?.name}</strong>
+            Hi, <strong>{data?.data.name}</strong>
           </span>
 
           <button
