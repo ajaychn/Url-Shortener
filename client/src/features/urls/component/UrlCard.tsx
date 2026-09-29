@@ -11,8 +11,8 @@ const UrlCard = ({url,onDelete,isDeleting,}: UrlCardProps) => {
   
   const [copied, setCopied] = useState(false);
 
-  const shortUrl = `${window.location.origin}/${url.shortCode}`;
-
+  const shortUrl = `${import.meta.env.VITE_API_URL}/${url.shortCode}`;
+  
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(shortUrl);
