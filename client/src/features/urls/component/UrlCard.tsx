@@ -11,7 +11,7 @@ const UrlCard = ({url,onDelete,isDeleting,}: UrlCardProps) => {
   
   const [copied, setCopied] = useState(false);
 
-  const shortUrl = `http://localhost:5000/${url.shortCode}`;
+  const shortUrl = `${window.location.origin}/${url.shortCode}`;
 
   const handleCopy = async () => {
     try {
