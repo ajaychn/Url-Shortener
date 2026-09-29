@@ -43,8 +43,7 @@ jobs:
       - name: Build Docker images
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/url-shortener-server:latest ./server
-          docker build \ --build-arg VITE_API_URL=${{ vars.VITE_API_URL }} \ 
-          -t ${{ secrets.DOCKERHUB_USERNAME }}/url-shortener-client:latest \ ./client
+          docker build \ --build-arg VITE_API_URL=${{ vars.VITE_API_URL }} \ -t ${{ secrets.DOCKERHUB_USERNAME }}/url-shortener-client:latest \ ./client
 
       - name: Push Docker images
         run: |
