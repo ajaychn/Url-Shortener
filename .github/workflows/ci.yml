@@ -53,3 +53,9 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/url-shortener-server:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/url-shortener-client:latest
+
+      - name: Deploy server to Render
+        run: curl -X POST "${{ secrets.SERVER_DEPLOY_HOOK }}"
+
+      - name: Deploy client to Render
+        run: curl -X POST "${{ secrets.CLIENT_DEPLOY_HOOK }}"

@@ -20,7 +20,8 @@ app.use(
 );
 app.get('/api/health',(req,res)=>{
   res.json({
-    message:"Health ata"
+    success:true,
+    message:"This is a Health Checkup"
   })
 })
 app.use(cookieParser())
