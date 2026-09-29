@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
-import { authApi, useLoginMutation, } from "../../services/authApi";
+import { useLoginMutation, } from "../../services/authApi";
 
 import { loginSchema, type LoginFormData, } from "../../features/auth/auth.schema";
 import { useAppDispatch } from "../../store/hooks";
