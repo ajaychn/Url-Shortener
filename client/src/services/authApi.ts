@@ -63,7 +63,6 @@ export const authApi = createApi({
         url: "/auth/logout",
         method: "POST",
       }),
-      invalidatesTags: ["Auth"],
     })
   })
 })

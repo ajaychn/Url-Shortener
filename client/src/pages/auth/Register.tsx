@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../../services/authApi";
 
 import {registerSchema,type RegisterFormData,} from "../../features/auth/auth.schema";
+import { setSession } from "../../utils/authSession";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Register = () => {
   const onSubmit = async (data: RegisterFormData) => {
     try {
       await registerUser(data).unwrap();
-
+      setSession();
       navigate("/dashboard");
     } catch(error) {
       console.error("Register Faild",error)

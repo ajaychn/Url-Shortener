@@ -2,11 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useLoginMutation, } from "../../services/authApi";
+import { authApi, useLoginMutation, } from "../../services/authApi";
 
 import { loginSchema, type LoginFormData, } from "../../features/auth/auth.schema";
 import { useAppDispatch } from "../../store/hooks";
-import { setUser } from "../../features/auth/authSlice";
+import { urlApi } from "../../services/urlApi";
+import { setSession } from "../../utils/authSession";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,13 +20,9 @@ const Login = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      const response = await login(data).unwrap();
-      dispatch(setUser(response.data));
-      // await dispatch(
-      //   authApi.endpoints.getMe.initiate(undefined, {
-      //     forceRefetch: true,
-      //   })
-      // ).unwrap();
+      await login(data).unwrap();
+      setSession();      
+      dispatch(urlApi.util.invalidateTags(["Auth"]));
       navigate("/dashboard");
     } catch(error) {
       console.error("Login Faild",error)
